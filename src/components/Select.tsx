@@ -1,3 +1,5 @@
+import { Select } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ChangeEvent, useEffect, useReducer } from 'react';
 
 import {
@@ -8,7 +10,7 @@ import {
 import { languagesReducer } from '../reducers/languagesReducer';
 import { Language } from '../types/Language';
 
-const Select = ({ selectedLanguage, setSelectedLanguage }) => {
+const LanguageSelect = ({ selectedLanguage, setSelectedLanguage }) => {
   const [state, dispatch] = useReducer(languagesReducer, {
     data: [],
     isLoading: false,
@@ -39,19 +41,25 @@ const Select = ({ selectedLanguage, setSelectedLanguage }) => {
   };
 
   return (
-    <select
-      className='mb-4'
-      value={selectedLanguage}
-      onChange={handleChange}
-      disabled={state.isLoading}
-    >
-      {state.data.map((language: Language) => (
-        <option key={language.title} value={language.value}>
-          {language.title}
-        </option>
-      ))}
-    </select>
+    <div className='relative'>
+      <Select
+        className='mb-4 block w-full appearance-none rounded-lg border py-1.5 px-3 text-sm'
+        value={selectedLanguage}
+        onChange={handleChange}
+        disabled={state.isLoading}
+      >
+        {state.data.map((language: Language, index: number) => (
+          <option key={index} value={language.value}>
+            {language.title}
+          </option>
+        ))}
+      </Select>
+      <ChevronDownIcon
+        className='group pointer-events-none absolute top-[7px] right-2.5 size-5 fill-black'
+        aria-hidden='true'
+      />
+    </div>
   );
 };
 
-export default Select;
+export default LanguageSelect;

@@ -6,7 +6,6 @@
 
 TODO:
 
-- [ ] Error handling
 - [ ] Fix lint errors
 - [ ] Unit testing
 - [ ] Integration testing
